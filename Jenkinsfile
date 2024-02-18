@@ -59,6 +59,24 @@ pipeline {
             }
         }
         
+        stage('Test') {
+            steps {
+                script {
+                    // Wait for a few seconds to ensure the container is fully started
+                    sleep time: 10, unit: 'SECONDS'
+
+                    // Run tests using curl against the running container
+                    def testOutput = sh(script: 'curl http://54.158.240.184:3000', returnStdout: true).trim()
+
+                    // Check if the output is 'Hello, World!'
+                    if (testOutput == 'Hello, World!') {
+                        echo 'Test passed: Output is Hello, World!'
+                    } else {
+                        error 'Test failed: Output is not Hello, World!'
+                    }
+                }
+            }
+        }
         stage('Cleanup') {
             steps {
                 script {
