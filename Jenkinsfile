@@ -50,7 +50,7 @@ pipeline {
                     sh 'docker images gifti/ci_cd:latest'
 
                     // Run Docker container in the background and capture the container ID
-                    def containerId = sh(script: 'docker run -d -p 8000:5000 sampleapp', returnStdout: true).trim()
+                    def containerId = sh(script: 'docker run -d -p 3000:5000 sampleapp', returnStdout: true).trim()
 
                     // Save container ID for later
                     env.CONTAINER_ID = containerId
