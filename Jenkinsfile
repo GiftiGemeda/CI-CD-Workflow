@@ -50,7 +50,7 @@ pipeline {
                     sh 'docker images gifti/ci_cd:latest'
 
                     // Run Docker container in the background and capture the container ID
-                    def containerId = sh(script: 'docker run -d -p 7000:5000 sampleapp', returnStdout: true).trim()
+                    def containerId = sh(script: 'docker run -d -p 8000:5000 sampleapp', returnStdout: true).trim()
 
                     // Save container ID for later
                     env.CONTAINER_ID = containerId
@@ -66,7 +66,7 @@ pipeline {
                     sleep time: 10, unit: 'SECONDS'
 
                     // Run tests using curl against the running container
-                    def testOutput = sh(script: 'curl http://183.73.144.73:7000', returnStdout: true).trim()
+                    def testOutput = sh(script: 'curl http://183.73.144.73:8000', returnStdout: true).trim()
 
                     // Check if the output is 'Hello, World!'
                     if (testOutput == 'Hello, World!') {
